@@ -1,0 +1,42 @@
+<script>
+    var ctx = document.getElementById('{{ blockId }}').getContext('2d');
+    var surveyChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    {% for q in questions %}
+                    'Q-{{ loop.index }}',
+                    {% endfor %}
+                ],
+                datasets: [{
+                    data: [{{ dataset }}],
+                    backgroundColor: [
+                        {% for q in questions %}
+                        'rgba({{ random(50,255) }},{{ random(50,255) }} , {{ random(50,255) }}, 0.2)',
+                        {% endfor %}
+                    ],
+                    borderColor: [
+                        {% for q in questions %}
+                        'rgba({{ random(50,255) }},{{ random(50,255) }} , {{ random(50,255) }}, 1)',
+                        {% endfor %}
+                    ],
+                    borderWidth: 1
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Avarege Mean for questions'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        })
+    ;
+</script>

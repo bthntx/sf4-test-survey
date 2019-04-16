@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Survey;
 use App\Entity\User;
-use App\Entity\UserSurvey;
+use App\Entity\UserFinishedSurvey;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -22,13 +22,10 @@ class SurveyRepository extends ServiceEntityRepository
         parent::__construct($registry, Survey::class);
     }
 
-
-
-
     public function getUnfinishedSurveys(User $user):Query
     {
         $subQ= $this->_em->createQueryBuilder()->select('ss.id')
-            ->from(UserSurvey::class,'uss')
+            ->from(UserFinishedSurvey::class, 'uss')
             ->leftJoin(Survey::class,'ss','WITH','ss.id=uss.survey')
             ->where('uss.finished = true')->andWhere('uss.user = :user');
         $q=$this->createQueryBuilder('s');

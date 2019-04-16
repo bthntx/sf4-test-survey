@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome to   survey stats of {{ survey_name }}{% endblock %}
+
+{% block body %}
+
+    <h3>Stats for Survey: {{ survey_name }}</h3>
+    <div class="row col-8">
+        <div class="" style="width: 400px">
+            <canvas id="surveyBarChart" style="width:400px;height: 400px"></canvas>
+        </div>
+        <div>
+            <ul>
+                {% for q in questions %}
+                    <li>Q-{{ loop.index }} {{ q.question }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row col-12">
+        {% for q in questions %}
+            <div class="col">
+                <canvas id="surveyPieChart{{ q.id }}" style="width:400px;height: 400px"></canvas>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/Chart.min.js') }}"></script>
+    {% include 'main/_bar.html.twig' with {'blockId':'surveyBarChart','dataset':dataset} %}
+    {% for q in questions %}
+        {% include 'main/_pie.html.twig' with {'blockId':'surveyPieChart'~q.id,'dataset':dataset2[q.id],'question':q} %}
+    {% endfor %}
+{% endblock %}

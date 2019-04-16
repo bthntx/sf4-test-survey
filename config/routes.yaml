@@ -7,3 +7,10 @@ index:
 take_survey:
   path: /survey/
   controller: App\Controller\MainController::takeSurvey
+show_last_survey_stats:
+  path: /survey/stats/
+  controller: App\Controller\MainController::showLastStats
+
+admin_user_last_survey_stats:
+  path: /admin/userstats/
+  controller: App\Controller\MainController::userStatistics

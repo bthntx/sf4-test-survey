@@ -22,8 +22,6 @@ class SurveyFixtures extends Fixture
             $surveyQuestion->setSurvey($survey);
             $manager->persist($surveyQuestion);
         }
-
-        $manager->flush();
         $manager->flush();
     }
 }

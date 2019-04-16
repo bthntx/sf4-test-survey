@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\SurveyAnswer;
+use App\Entity\SurveyQuestion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,33 @@ class SurveyAnswerRepository extends ServiceEntityRepository
         parent::__construct($registry, SurveyAnswer::class);
     }
 
-    // /**
-    //  * @return SurveyAnswer[] Returns an array of SurveyAnswer objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?SurveyAnswer
+    /** Get average mean for each question
+     * @param SurveyQuestion $question
+     * @return float
+     */
+    public function getAnswersMeanValue(SurveyQuestion $question): float
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+
+        $q = $this->createQueryBuilder('summ')
+            ->andWhere('summ.question = :question')
+            ->setParameter('question', $question)
+            ->select('SUM(summ.value)');
+        $summ = $q->getQuery()->getSingleScalarResult();
+        $count = $q->select('COUNT(summ)')->getQuery()->getSingleScalarResult();
+
+        return round(($summ / $count), 2);
+
     }
-    */
+
+    public function getStatsByValues(SurveyQuestion $question): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.question = :question')
+            ->setParameter('question', $question)
+            ->select('SUM(a.value)')
+            ->groupBy("a.value")
+            ->select('a.value, COUNT(a) as summ')->getQuery()->getScalarResult();
+
+    }
 }

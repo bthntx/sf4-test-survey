@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +38,16 @@ class SurveyAnswer
      * @ORM\Column(type="datetime_immutable")
      */
     private $answerDate;
+
+    /**
+     * SurveyAnswer constructor.
+     * @param $id
+     */
+    public function __construct()
+    {
+        $this->setAnswerDate(new DateTimeImmutable());
+    }
+
 
     public function getId(): ?int
     {
@@ -79,12 +90,12 @@ class SurveyAnswer
         return $this;
     }
 
-    public function getAnswerDate(): ?\DateTimeImmutable
+    public function getAnswerDate(): DateTimeImmutable
     {
         return $this->answerDate;
     }
 
-    public function setAnswerDate(\DateTimeImmutable $answerDate): self
+    public function setAnswerDate(DateTimeImmutable $answerDate): self
     {
         $this->answerDate = $answerDate;
 

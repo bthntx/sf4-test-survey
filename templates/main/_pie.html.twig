@@ -1,0 +1,41 @@
+<script>
+    var ctx = document.getElementById('{{ blockId }}').getContext('2d');
+    var surveyChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: [
+                    {% for v in dataset %}
+                    'Value-{{ v.value }}',
+                    {% endfor %}
+                ],
+                datasets: [{
+                    label: '# PieChart for Answers',
+                    data: [
+                        {% for v in dataset %}
+                        {{ v.summ }},
+                        {% endfor %}
+                    ],
+                    backgroundColor: [
+                        {% for v in dataset %}
+                        'rgba({{ random(50,255) }},{{ random(50,255) }} , {{ random(50,255) }}, 0.2)',
+                        {% endfor %}
+                    ],
+                    borderColor: [
+                        {% for v in dataset %}
+                        'rgba({{ random(50,255) }},{{ random(50,255) }} , {{ random(50,255) }}, 1)',
+                        {% endfor %}
+                    ],
+                    borderWidth: 1
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: '{{ question.question }}'
+                },
+            }
+        })
+    ;
+
+</script>

@@ -94,7 +94,6 @@ class Survey
                 $question->setSurvey(null);
             }
         }
-
         return $this;
     }
 }

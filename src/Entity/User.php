@@ -22,7 +22,7 @@ class User extends  BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserSurvey", mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="UserFinishedSurvey", mappedBy="user", orphanRemoval=true)
      */
     private $userSurveys;
 
@@ -33,14 +33,14 @@ class User extends  BaseUser
     }
 
     /**
-     * @return Collection|UserSurvey[]
+     * @return Collection|UserFinishedSurvey[]
      */
     public function getUserSurveys(): Collection
     {
         return $this->userSurveys;
     }
 
-    public function addUserSurvey(UserSurvey $userSurvey): self
+    public function addUserSurvey(UserFinishedSurvey $userSurvey): self
     {
         if (!$this->userSurveys->contains($userSurvey)) {
             $this->userSurveys[] = $userSurvey;
@@ -50,7 +50,7 @@ class User extends  BaseUser
         return $this;
     }
 
-    public function removeUserSurvey(UserSurvey $userSurvey): self
+    public function removeUserSurvey(UserFinishedSurvey $userSurvey): self
     {
         if ($this->userSurveys->contains($userSurvey)) {
             $this->userSurveys->removeElement($userSurvey);

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Welcome to our survey {{ survey_name }}{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Welcome to our survey {{ survey_name }}</h1>
 
-    This friendly message is coming from:
     <ul>
-        <li class="">Your controller at <code><a href="{{ '/Users/beathan/webprojects/sf4/survey/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/beathan/webprojects/sf4/survey/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
+        <li class="">Please take our survey, {{ app.user.username }}</li>
+
     </ul>
 
     {{ form(form) }}

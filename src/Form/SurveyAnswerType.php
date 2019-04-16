@@ -8,9 +8,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\Range;
+
 
 class SurveyAnswerType extends AbstractType
 {
@@ -28,6 +29,8 @@ class SurveyAnswerType extends AbstractType
                     $entity = $event->getData();
                     if ($entity) {
                         $form->add('value', ChoiceType::class, [
+                            'required' => true,
+                            'constraints' => [new NotNull(), new Range(['min' => 0, 'max' => 5])],
                             'label' => $entity->getQuestion()->getQuestion(),
                             'choices' => [
                                 '0' => '0',

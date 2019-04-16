@@ -32,6 +32,15 @@ class SurveyPageModel
 
     }
 
+    public function isFinished(): bool
+    {
+        if ($this->questions->count() > 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * @return Collection|SurveyQuestion[]
      */
