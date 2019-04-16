@@ -3,6 +3,7 @@ Don't forget to load questions from the fixture:
 bin/console doctrine:fixtures:load
 
 To make admin user: bin/console fos:user:promote <username> ROLE_ADMIN
+  admin user at demo site is l:a1, p:11
 
 We suppose that Survey questions data is quite static and immutable (!important) 
 while users taking to take survey, otherwise we need to add published property 
